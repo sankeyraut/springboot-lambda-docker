@@ -2,3 +2,6 @@ unicorn-store-spring/.DS_Store
 unicorn-store-spring/target/*
 .DS_Store
 .vscode/settings.json
+cdk-docker-lambda/cdk.out/*
+cdk-docker-lambda/node_modules/**
+
