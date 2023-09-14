@@ -3,6 +3,7 @@ import { Construct } from "constructs";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import path = require("path");
 import { LambdaRestApi, RestApi } from "aws-cdk-lib/aws-apigateway";
+import { Tracing } from "aws-cdk-lib/aws-lambda";
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class CdkDockerLambdaStack extends cdk.Stack {
@@ -22,6 +23,7 @@ export class CdkDockerLambdaStack extends cdk.Stack {
       {
         timeout: cdk.Duration.minutes(10),
         memorySize: 2048,
+        tracing: Tracing.ACTIVE,
         code: lambda.DockerImageCode.fromImageAsset(
           path.join(__dirname, "../../unicorn-store-spring"),
           {
@@ -33,6 +35,9 @@ export class CdkDockerLambdaStack extends cdk.Stack {
 
     const restAPI = new LambdaRestApi(this, "store-api", {
       handler: unicornStore,
+      deployOptions: {
+        tracingEnabled: true,
+      },
     });
   }
 }

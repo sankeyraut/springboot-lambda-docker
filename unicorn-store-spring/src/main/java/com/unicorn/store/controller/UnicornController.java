@@ -26,6 +26,7 @@ public class UnicornController {
     public ResponseEntity<Unicorn> createUnicorn(@RequestBody Unicorn unicorn) {
         try {
             var savedUnicorn = unicornService.createUnicorn(unicorn);
+            logger.info("saved the unicorn: " + savedUnicorn);
             return ResponseEntity.ok(savedUnicorn);
         } catch (Exception e) {
             String errorMsg = "Error creating unicorn";
@@ -49,7 +50,13 @@ public class UnicornController {
     @GetMapping("/unicorns/{unicornId}")
     public ResponseEntity<Unicorn> getUnicorn(@PathVariable String unicornId) {
         try {
-            var unicorn = unicornService.getUnicorn(unicornId);
+            logger.info("Checking for the unicorn: " + unicornId);
+            Unicorn unicorn = new Unicorn();
+            unicorn.setName("New Name");
+            unicorn.setId(unicornId);
+            unicorn.setAge("19");
+            unicorn.setSize("Small");
+            // var unicorn = unicornService.getUnicorn(unicornId);
             return ResponseEntity.ok(unicorn);
         } catch (ResourceNotFoundException e) {
             String errorMsg = "Unicorn not found";
