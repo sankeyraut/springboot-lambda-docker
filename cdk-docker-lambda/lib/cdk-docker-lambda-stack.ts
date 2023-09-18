@@ -30,6 +30,9 @@ export class CdkDockerLambdaStack extends cdk.Stack {
             cmd: ["com.unicorn.store.StreamLambdaHandler::handleRequest"],
           }
         ),
+        environment: {
+          JAVA_TOOL_OPTIONS: "-XX:+TieredCompilation -XX:TieredStopAtLevel=1",
+        },
       }
     );
 
